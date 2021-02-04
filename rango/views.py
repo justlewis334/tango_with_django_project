@@ -21,7 +21,7 @@ def index(request):
     context_dict['categories']=category_list
     context_dict['pages']=page_list
     # Render the response and send it back!
-    return render(request,'rango/index.html', context=context_dict)
+    return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
     return render(request, 'rango/about.html')
@@ -67,7 +67,7 @@ def add_category(request):
         if form.is_valid():
             # Save the new category to the database
             form.save(commit=True)
-            return redirect('/rango/')
+            return redirect(reverse('rango:index'))
         else:
             # The form contained errors - print
             print(form.errors)
@@ -81,7 +81,7 @@ def add_page(request, category_name_slug):
         category = None
 
     if category is None:
-        return redirect('/rango/')
+        return redirect(reverse('rango:index'))
 
     form = PageForm()
 
